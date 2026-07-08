@@ -6,7 +6,7 @@ import RichText from "./components/RichText.jsx";
 import AdminDashboard from "./pages/AdminDashboard.jsx";
 import { CSS } from "./styles.js";
 
-const ADMIN_ALLOWLIST = ["mailtoateendra@gmail.com"];
+const ADMIN_ALLOWLIST = ["you@yourdomain.com"];
 
 /* Falls back to seed defaults until site_settings is populated. */
 const DEFAULTS = {
@@ -155,6 +155,8 @@ function Home({ go, posts, settings, videos }) {
   const tail = words.slice(-2).join(" ");
   // Render the editable eyebrow: split on "·" and accent the tail segments.
   const eyebrowParts = (settings.hero_eyebrow || "").split("·").map((s) => s.trim()).filter(Boolean);
+  const blogPosts = posts.filter((p) => p.category !== "tutorial");
+  const tutorialPosts = posts.filter((p) => p.category === "tutorial");
   return (
     <>
       <section className="hero">
@@ -181,14 +183,27 @@ function Home({ go, posts, settings, videos }) {
       <section className="sect" aria-label="Featured writing">
         <div className="wrap">
           <div className="sect-head">
-            <div><div className="eyebrow">WRITING <b>· featured</b></div><h2>Recently published</h2></div>
-            <button className="see-all" onClick={() => go("blogs")}>All posts →</button>
+            <div><div className="eyebrow">WRITING <b>· blog</b></div><h2>Recently published</h2></div>
+            <button className="see-all" onClick={() => go("blogs")}>All blogs →</button>
           </div>
-          <div className="bgrid">
-            {posts.slice(0, 3).map((p) => <PostCard key={p.id} post={p} go={go} />)}
-          </div>
+          {blogPosts.length > 0
+            ? <div className="bgrid">{blogPosts.slice(0, 3).map((p) => <PostCard key={p.id} post={p} go={go} />)}</div>
+            : <div className="empty-note">No blog posts yet. Add one in the admin — set it to <b>Blog</b>.</div>}
         </div>
       </section>
+
+      <section className="sect alt" aria-label="Tutorials">
+        <div className="wrap">
+          <div className="sect-head">
+            <div><div className="eyebrow">LEARN <b>· tutorials</b></div><h2>Step-by-step tutorials</h2></div>
+            <button className="see-all" onClick={() => go("tutorials")}>All tutorials →</button>
+          </div>
+          {tutorialPosts.length > 0
+            ? <div className="bgrid">{tutorialPosts.slice(0, 3).map((p) => <PostCard key={p.id} post={p} go={go} />)}</div>
+            : <div className="empty-note">No tutorials yet. Add one in the admin — set it to <b>Tutorial</b>.</div>}
+        </div>
+      </section>
+
       <VideoGrid settings={settings} videos={videos} />
     </>
   );
