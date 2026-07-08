@@ -30,9 +30,12 @@ function PostList({ posts, onEdit, onNew, onDelete }) {
                 <div>
                   <div className="dash-row-title">
                     {p.title || "(untitled)"}
+                    <span className={"pill-cat " + (p.category === "tutorial" ? "tut" : "blog")}>
+                      {p.category === "tutorial" ? "Tutorial" : "Blog"}
+                    </span>
                     <span className={p.published ? "pill-live" : "pill-draft"}>{p.published ? "live" : "draft"}</span>
                   </div>
-                  <div className="dash-row-meta">/{p.slug} · {p.category} · {p.read_mins} min</div>
+                  <div className="dash-row-meta">/{p.slug} · {p.read_mins} min read</div>
                 </div>
                 <div className="dash-row-actions">
                   <button className="btn-ghost" onClick={() => onEdit(p)}>Edit</button>
@@ -183,29 +186,38 @@ function PostEditor({ post, onSaved, onCancel, categoryOptions }) {
         </div>
       </div>
 
+      <div className="field">
+        <label>Where does this post go?</label>
+        <div className="seg-toggle">
+          <button type="button" className={form.category === "blog" ? "on" : ""}
+            onClick={() => set("category", "blog")}>
+            📝 Blog
+          </button>
+          <button type="button" className={form.category === "tutorial" ? "on" : ""}
+            onClick={() => set("category", "tutorial")}>
+            🎓 Tutorial
+          </button>
+        </div>
+        <p className="field-hint">
+          {form.category === "tutorial"
+            ? "This post will appear on the Tutorials page and the homepage Tutorials section."
+            : "This post will appear on the Blogs page and the homepage Recently published section."}
+        </p>
+      </div>
+
       <div className="ed-grid">
         <div className="field">
-          <label>Category</label>
-          <input list="category-options" value={form.category}
-            onChange={(e) => set("category", e.target.value)}
-            placeholder="Pick one or type your own" />
-          <datalist id="category-options">
-            {categoryOptions.map((c) => <option key={c} value={c} />)}
-          </datalist>
-          <p className="field-hint">Choose an existing category or type a brand-new one. "Tutorial" posts also appear under the Tutorials tab.</p>
+          <label>Tags (comma separated)</label>
+          <input value={form.tags.join(", ")}
+            onChange={(e) => set("tags", e.target.value.split(",").map((t) => t.trim()).filter(Boolean))}
+            placeholder="AI, DevOps" />
+          <p className="field-hint">Small topic labels shown on the card (e.g. AI, DevOps).</p>
         </div>
         <div className="field">
           <label>Read time (min)</label>
           <input type="number" min="1" value={form.read_mins}
             onChange={(e) => set("read_mins", Number(e.target.value))} />
         </div>
-      </div>
-
-      <div className="field">
-        <label>Tags (comma separated)</label>
-        <input value={form.tags.join(", ")}
-          onChange={(e) => set("tags", e.target.value.split(",").map((t) => t.trim()).filter(Boolean))}
-          placeholder="AI, DevOps" />
       </div>
 
       <div className="field">
