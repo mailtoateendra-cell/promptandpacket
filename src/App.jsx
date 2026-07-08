@@ -6,7 +6,7 @@ import RichText from "./components/RichText.jsx";
 import AdminDashboard from "./pages/AdminDashboard.jsx";
 import { CSS } from "./styles.js";
 
-const ADMIN_ALLOWLIST = ["you@yourdomain.com"];
+const ADMIN_ALLOWLIST = ["mailtoateendra@gmail.com"];
 
 /* Falls back to seed defaults until site_settings is populated. */
 const DEFAULTS = {
