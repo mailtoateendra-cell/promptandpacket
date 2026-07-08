@@ -243,6 +243,16 @@ export const CSS = `
   .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
   .field-hint{font-size:12px;color:var(--faint);margin-top:6px;line-height:1.5}
   .video-add{background:var(--bg-alt);border:1px solid var(--line);border-radius:12px;padding:18px;margin-bottom:8px}
+  .seg-toggle{display:flex;gap:8px}
+  .seg-toggle button{flex:1;padding:14px 16px;border:1.5px solid var(--line-2);border-radius:10px;
+    font-size:15px;font-weight:600;color:var(--muted);background:var(--card);transition:.14s}
+  .seg-toggle button:hover{border-color:var(--accent);color:var(--ink)}
+  .seg-toggle button.on{border-color:var(--accent);background:var(--accent-soft);color:var(--accent-ink);box-shadow:0 0 0 3px var(--accent-soft)}
+  .pill-cat{font-family:var(--mono);font-size:9.5px;padding:2px 8px;border-radius:99px;text-transform:uppercase;letter-spacing:.05em;font-weight:500}
+  .pill-cat.blog{color:var(--accent-ink);background:var(--accent-soft);border:1px solid #D5D8FB}
+  .pill-cat.tut{color:#0B6E4F;background:#E4F3EC;border:1px solid #A7E8CE}
+  .empty-note{padding:28px;border:1px dashed var(--line-2);border-radius:12px;text-align:center;color:var(--muted);font-size:14px}
+  .empty-note b{color:var(--ink)}
   .video-add-row{display:flex;gap:12px;align-items:flex-end}
   .vm-thumb{width:72px;height:44px;object-fit:cover;border-radius:6px;border:1px solid var(--line-2)}
   @media(max-width:560px){.video-add-row{flex-direction:column;align-items:stretch}.video-add-row .btn-solid{width:100%}}
